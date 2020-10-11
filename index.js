@@ -22,9 +22,13 @@ const dog = {
 let choir = []; // 合唱团
 
 let joinChoir = function (animal) {
-    choir.push(animal);
-    console.log('恭喜加入合唱团');
-    console.log(`合唱团已有成员数量${choir.length}`);
+    if(animal && typeof animal.duckSinging === 'function'){
+        choir.push(animal);
+        console.log('恭喜加入合唱团');
+        console.log(`合唱团已有成员数量${choir.length}`);
+    } else {
+        console.log('加入合唱团失败');
+    }
 }
 
 joinChoir(duck);
