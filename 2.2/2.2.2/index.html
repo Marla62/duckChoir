@@ -22,16 +22,19 @@
     var obj = {
       name: 'obj'
     }
-    Function.prototype.bind = function(context){
+    Function.prototype.bind = function(){
       var _this = this;
+      var context = [].shift.call(arguments);
+      var args = [].slice.call(arguments);
       return function() {
-        return _this.apply(context, arguments);
+        return _this.apply(context, [].concat(args, [].slice.call(arguments)));
       }
     }
-    let outputName = (function() {
+    let outputName = (function(a,b,c,d) {
       console.log(this.name);
-    }).bind(obj)
-    outputName();
+      console.log(a,b,c,d)
+    }).bind(obj, 1, 2)
+    outputName(3, 4);
   </script>
 </body>
 </html>
