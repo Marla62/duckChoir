@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+<script>
+    // let list = document.querySelectorAll('div');
+    // for (var i = 0; i < list.length; i++) {
+    //   (function (a) {
+    //     list[a].onclick = function (){
+    //       alert(a)
+    //     }
+    //   })(i)
+    // }
+    // var Type = {};
+    // for(var type, i = 0; type = ['String', 'Array', 'Number'][i++];){
+    //   (function (type){
+    //     Type['is' + type] = function (obj) {
+    //       console.log(`[object ${type}]`); // 为啥 type === undefined
+    //       return Object.prototype.toString.call(obj) === `[object ${type}]`
+    //     }
+    //   })(type)
+    // }
+
+    // 1. 实现一个计算乘积的函数 他的参数是数字类型
+    // 2. 实现一个缓存机制 当计算过时 就直接从缓存中读取
+    // 3. 这里cache被暴露了， 将其保存在闭包中，保持干净的全局环境
+    var mult = (function() {
+      var cache = {};
+      return function () {
+        let arr = Array.prototype.slice.call(arguments);
+        let key = arr.join(',')
+        if(cache[key]){
+          return cache[key];
+        }
+        let result = 1;
+        for(let i = 0; i < arr.length; i++) {
+          result *= arr[i];
+        }
+        cache[key] = result;
+        console.log('算完了');
+        return result;
+      }
+    })()
+
+
+    console.log(mult(1, 2, 3));
+    console.log(mult(1, 2, 3));
+</script>
+</body>
+</html>
